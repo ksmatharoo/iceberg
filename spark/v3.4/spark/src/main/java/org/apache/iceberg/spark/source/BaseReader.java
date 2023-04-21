@@ -174,7 +174,9 @@ abstract class BaseReader<T, TaskT extends ScanTask> implements Closeable {
   }
 
   protected InputFile getInputFile(String location) {
-    return inputFiles().get(location);
+    //if we are using custom fileIO this will update location
+    InputFile inputFile = table.io().newInputFile(location);
+    return inputFiles().get(inputFile.location());
   }
 
   private Map<String, InputFile> inputFiles() {
